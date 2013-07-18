@@ -191,6 +191,10 @@ def _combined_open_ended_grading(tab, user, course, active_page):
         return tab
     return []
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> Finishing up: cleaned up comments. Removed stuff from tabs.py.
 def _notes_tab(tab, user, course, active_page):
     if user.is_authenticated() and settings.MITX_FEATURES.get('ENABLE_STUDENT_NOTES'):
         link = reverse('notes', args=[course.id])
