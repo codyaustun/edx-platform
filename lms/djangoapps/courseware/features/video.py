@@ -58,3 +58,9 @@ def add_videoalpha_to_course(course):
     world.ItemFactory.create(parent_location=section_location(course),
                              category=category,
                              display_name='Video Alpha')
+
+
+@step('when I view the videoalpha it has rendered')
+def does_videoalpha_rendered(_step):
+    assert world.is_css_present('.videoalpha')
+

@@ -1,6 +1,10 @@
 Feature: Video component
   As a student, I want to view course videos in LMS.
 
+  Scenario: Videoalpha component is fully rendered in the LMS
+  Given the course has a VideoAlpha component
+  Then when I view the videoalpha it has video element
+
   Scenario: Autoplay is enabled in LMS for a Video component
   Given the course has a Video component
   Then when I view the video it has autoplay enabled
