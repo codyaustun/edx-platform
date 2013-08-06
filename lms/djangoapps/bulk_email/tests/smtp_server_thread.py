@@ -23,16 +23,20 @@ class FakeSMTPServerThread(threading.Thread):
         super(FakeSMTPServerThread, self).start()
         self.is_ready.wait()
         if self.error:
-            raise self.error
+            raise self.error  # pylint: disable=E0702
 
     def stop(self):
+        """
+        Stop the thread by closing the server instance.
+        Wait for the server thread to terminate.
+        """
         if hasattr(self, 'server'):
             self.server.close()
         self.join()
 
     def run(self):
         """
-        Sets up the test smtp server and handle requests
+        Sets up the test smtp server and handle requests.
         """
         try:
             self.server = FakeSMTPServer((self.host, self.port), None)
