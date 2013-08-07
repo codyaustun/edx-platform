@@ -51,35 +51,35 @@ def add_video_to_course(course):
     world.ItemFactory.create(
         parent_location=section_location(course),
         category='video',
-        display_name='Video',
+        display_name='Video'
     )
 
 
 def add_videoalpha_to_course(course, player_mode):
     category = 'videoalpha'
-    metadata = {
-        'youtube_id_1_0':'',
-        'youtube_id_0_75':'',
-        'youtube_id_1_25':'',
-        'youtube_id_1_5':'',
-        'html5_sources':[
-            'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.mp4'
-            'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.webm'
-            'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.ogv'
-        ],
-    } if (player_mode is 'html5') \
-    else {
-        'youtube_id_1_0':'3O1_3zBUKM8',
-        'youtube_id_0_75':'3O1_3zBUKM8',
-        'youtube_id_1_25':'3O1_3zBUKM8',
-        'youtube_id_1_5':'3O1_3zBUKM8',
+
+    kwargs = {
+        'parent_location': section_location(course),
+        'category': category,
+        'display_name': 'Video Alpha'
     }
-    world.ItemFactory.create(
-        parent_location=section_location(course),
-        category=category,
-        display_name='Video Alpha',
-        metadata=metadata
-    )
+
+    if player_mode == 'html5':
+        kwargs.update({
+            'metadata': {
+                'youtube_id_1_0':'',
+                'youtube_id_0_75':'',
+                'youtube_id_1_25':'',
+                'youtube_id_1_5':'',
+                'html5_sources':[
+                    'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.mp4'
+                    'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.webm'
+                    'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.ogv'
+                ]
+            }
+        })
+
+    world.ItemFactory.create(**kwargs)
 
 
 @step('when I view the videoalpha it has rendered in HTML5 mode')
