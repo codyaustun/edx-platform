@@ -21,7 +21,7 @@ from django.conf import settings
 
 from xmodule.x_module import XModule
 from xmodule.editing_module import TabsEditingDescriptor
-from xmodule.raw_module import RawDescriptor
+from xmodule.raw_module import EmptyDataRawDescriptor
 from xmodule.modulestore.mongo import MongoModuleStore
 from xmodule.modulestore.django import modulestore
 from xmodule.contentstore.content import StaticContent
@@ -188,7 +188,7 @@ class VideoAlphaModule(VideoAlphaFields, XModule):
         })
 
 
-class VideoAlphaDescriptor(VideoAlphaFields, TabsEditingDescriptor, RawDescriptor):
+class VideoAlphaDescriptor(VideoAlphaFields, TabsEditingDescriptor, EmptyDataRawDescriptor):
     """Descriptor for `VideoAlphaModule`."""
     module_class = VideoAlphaModule
 
@@ -225,8 +225,11 @@ class VideoAlphaDescriptor(VideoAlphaFields, TabsEditingDescriptor, RawDescripto
         org and course are optional strings that will be used in the generated modules
             url identifiers
         """
-        model_data = VideoAlphaDescriptor._parse_video_xml(xml_data)
-        video = cls(system, model_data)
+
+        # calling from_xml of XmlDescritor, to get right Location, when importing from XML
+        # Please dublicate this comment in from_xml method of xblock or at similar place to avoid future misses
+        video = super(VideoAlphaDescriptor, cls).from_xml(xml_data, system, org, course)
+
         return video
 
     def export_to_xml(self, resource_fs):
