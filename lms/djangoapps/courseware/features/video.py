@@ -84,9 +84,9 @@ def add_videoalpha_to_course(course, player_mode):
 
 @step('when I view the videoalpha it has rendered in HTML5 mode')
 def does_videoalpha_rendered_in_html5_mode(_step):
-    assert world.is_css_present('.videoalpha .video-player video')
+    assert world.css_find('.videoalpha video').first
 
 @step('when I view the videoalpha it has rendered in Youtube mode')
 def does_videoalpha_rendered_in_youtube_mode(_step):
-    assert world.is_css_present('.videoalpha .video-player iframe')
+    assert world.css_find('.videoalpha iframe').first
 
