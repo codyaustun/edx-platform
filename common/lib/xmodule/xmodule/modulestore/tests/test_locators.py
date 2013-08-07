@@ -96,7 +96,6 @@ class LocatorTest(TestCase):
         for bad_url in ('edx://',
                         'edx:/mit.eecs',
                         'http://mit.eecs',
-                        'mit.eecs',
                         'edx//mit.eecs'):
             self.assertRaises(AssertionError, CourseLocator, url=bad_url)
 
