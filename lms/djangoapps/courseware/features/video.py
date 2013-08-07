@@ -20,7 +20,7 @@ def does_autoplay_videoalpha(_step):
 @step('the course has a Video component')
 def view_video(_step):
     coursenum = 'test_course'
-    i_am_registered_for_the_course(step, coursenum)
+    i_am_registered_for_the_course(_step, coursenum)
 
     # Make sure we have a video
     add_video_to_course(coursenum)
@@ -33,9 +33,9 @@ def view_video(_step):
 
 
 @step('the course has a VideoAlpha in (.*) mode component')
-def view_videoalpha(step, player_mode):
+def view_videoalpha(_step, player_mode):
     coursenum = 'test_course'
-    i_am_registered_for_the_course(step, coursenum)
+    i_am_registered_for_the_course(_step, coursenum)
 
     # Make sure we have a videoalpha
     add_videoalpha_to_course(coursenum, player_mode.lower())
@@ -67,13 +67,13 @@ def add_videoalpha_to_course(course, player_mode):
     if player_mode == 'html5':
         kwargs.update({
             'metadata': {
-                'youtube_id_1_0':'',
-                'youtube_id_0_75':'',
-                'youtube_id_1_25':'',
-                'youtube_id_1_5':'',
-                'html5_sources':[
-                    'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.mp4'
-                    'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.webm'
+                'youtube_id_1_0': '',
+                'youtube_id_0_75': '',
+                'youtube_id_1_25': '',
+                'youtube_id_1_5': '',
+                'html5_sources': [
+                    'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.mp4',
+                    'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.webm',
                     'https://s3.amazonaws.com/edx-course-videos/edx-intro/edX-FA12-cware-1_100.ogv'
                 ]
             }
@@ -83,10 +83,10 @@ def add_videoalpha_to_course(course, player_mode):
 
 
 @step('when I view the videoalpha it has rendered in HTML5 mode')
-def does_videoalpha_rendered_in_html5_mode(_step):
+def videoalpha_rendered_html5_mode(_step):
     assert world.css_find('.videoalpha video').first
 
-@step('when I view the videoalpha it has rendered in Youtube mode')
-def does_videoalpha_rendered_in_youtube_mode(_step):
-    assert world.css_find('.videoalpha iframe').first
 
+@step('when I view the videoalpha it has rendered in Youtube mode')
+def videoalpha_rendered_yt_mode(_step):
+    assert world.css_find('.videoalpha iframe').first
